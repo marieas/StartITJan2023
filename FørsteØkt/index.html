@@ -9,7 +9,7 @@
 <body id="pusur" class="color">    
     <div>
         <h1 id="terribleHeader" onclick="changeText()">Start text</h1>
-        <h1 id="terribleHeader" onclick="changeTextWithParam('parameter')">ClickThisToChange</h1>
+        <h1 id="anotherHeader" onclick="changeTextWithParam('parameter')">ClickThisToChange</h1>
         <button class="btnstyle" onclick="changeColor()">change color to random</button>
         <button onclick="changeColorWithParam('brown')">change color to brown</button>
     </div>
@@ -24,11 +24,11 @@
         }
 
         function changeText(){           
-           document.getElementById('terribleHeader').innerHTML = currentText;          
+           document.getElementById('anotherHeader').innerHTML = currentText;          
         }
 
         function changeColorWithParam(color){
-            document.getElementById('pusur').style.backgroundColor = 'blue';
+            document.getElementById('pusur').style.backgroundColor = color;
         }
         function changeColor(){
             let red = 0;
@@ -39,7 +39,7 @@
             green = Math.floor(Math.random()  * 255);
             blue = Math.floor(Math.random()  * 255);
                                             
-            //currentText = Math.floor(Math.random() * 10) +1;
+            currentText = Math.floor(Math.random() * 10) +1;
             changeText()
             //currentText = `red: ${red}, blue ${green}, green  ${blue}`            
             document.getElementById('pusur').style.backgroundColor = `rgb(${red},${green},${blue})`;
