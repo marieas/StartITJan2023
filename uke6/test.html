@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.19.3.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="https://code.jquery.com/qunit/qunit-2.19.3.js"></script>
+    <script src="controller.js"></script>
+    <script src="model.js"></script>
+    
+    <script>
+        function updateView(){}
+
+        QUnit.test('add to cart test', function(assert){            
+            let expectedCart = ['banan']
+            let expectedTotalprice = 150;
+
+            totalPrice = 0;
+            cart = []
+
+            addToCart('banan',150)
+
+            assert.equal(totalPrice,expectedTotalprice)
+            assert.deepEqual(cart,expectedCart)
+        })
+
+        QUnit.test('add to cart test, if cart contains one element', function(assert){            
+            let expectedCart = ['banan','eple']
+            let expectedTotalprice = 160;
+            cart = ['banan']
+            totalPrice = 10
+
+            addToCart('eple', 150)
+            assert.equal(totalPrice,expectedTotalprice)
+            assert.deepEqual(cart,expectedCart)
+        })
+        
+        QUnit.test('add to cart test- does not add same item', function(assert){            
+            let expectedCart = ['banan']
+            let expectedTotalprice = 10;
+            cart = ['banan']
+            totalPrice = 10
+
+            addToCart('banan', 150)
+            assert.equal(totalPrice,expectedTotalprice)
+            assert.deepEqual(cart,expectedCart)
+        })
+        QUnit.test('remove item test', function(assert){            
+            let expectedCart = []
+            let expectedTotalprice = 0;
+            
+            cart = ['butter']
+            totalPrice = 52
+
+            removeItem(0)
+
+            assert.equal(totalPrice,expectedTotalprice)
+            assert.deepEqual(cart,expectedCart)
+        })
+       
+        QUnit.test('buy items test', function(assert){            
+           let expectedWallet = 48
+           let expectedCheckOutMsg = 'Du har kjøpt alt i vogna di ;D'
+           let expectedTotalPrice = 0
+           let expectedCart = []
+
+            totalPrice = 52
+            wallet = 100
+
+            buyItems()
+            
+            assert.equal(wallet,expectedWallet)
+            assert.equal(checkOutMsg,expectedCheckOutMsg)
+            assert.equal(totalPrice,expectedTotalPrice)
+            assert.deepEqual(cart,expectedCart)
+        })
+
+        QUnit.test('buy items test', function(assert){            
+           let expectedCheckOutMsg = 'Du har ikke nok penger'
+       
+            totalPrice = 520
+            wallet = 100
+
+            buyItems()
+
+            assert.equal(checkOutMsg,expectedCheckOutMsg)
+
+        })
+
+           QUnit.test('reset store test', function(assert){            
+           let expectedTotalPrice = 0
+           let expectedCart = []
+
+            totalPrice = 520
+            cart = ['smør','brød']
+
+            resetStore()
+
+            assert.deepEqual(cart,expectedCart)
+            assert.equal(totalPrice,expectedTotalPrice)
+
+        })
+        QUnit.test('get cost test bread', function(assert){            
+            let expectedPrice = 36            
+            let price = getCost('bread')
+            assert.equal(price,expectedPrice)
+        })
+        QUnit.test('get cost test butter', function(assert){            
+            let expectedPrice = 52            
+            let price = getCost('butter')
+            assert.equal(price,expectedPrice)
+        })
+        QUnit.test('get cost test milk', function(assert){            
+            let expectedPrice = 40            
+            let price = getCost('milk')
+            assert.equal(price,expectedPrice)
+        })
+        QUnit.test('get cost test other items', function(assert){            
+            let expectedPrice = 36            
+            let price = getCost('banan')
+            assert.equal(price,expectedPrice)
+        })
+    </script>
+
+</body>
+</html>
