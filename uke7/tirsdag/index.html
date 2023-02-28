@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app" class="container"></div>
+    
+    <script>
+
+        let name;
+        let age;
+        let address;
+        let searchCriteria = '';
+        let chosenPerson = '';
+        let personTxt = '';
+
+    
+        let persons = [{
+            name: 'Kari',
+            age: 35,
+            address: 'Bjarnes kyststi'
+        },
+        {
+            name: 'Kurt',
+            age:40,
+            address: 'Kjærlighetsstien'
+        },
+        {
+            name: 'Nils',
+            age:48,
+            address: 'Klokkeåsen'
+        },
+        {
+            name: 'Bjarne',
+            age:43,
+            address: 'Nilsens vei'
+        }
+       ]
+
+        updateView()
+        function updateView(){
+            document.getElementById('app').innerHTML = /*HTML*/`
+            <div>Name: <input onchange="setName(this.value)"></div>
+            <div>Age: <input onchange="setAge(this.value)"></div>
+            <div>Address: <input onchange="setAddress(this.value)"></div>
+      
+            <button onclick="submitUser()">Submit</button>
+
+            <div>${personTxt}</div>
+            <div>${chosenPerson}</div>
+            <div>${printPersonsArray()}</div>
+            <div>
+            Search Criteria:
+            <input type="text" onchange="searchCriteria = this.value">            
+            <button onclick="PeopleSearch()">Search for people</button>
+            </div>
+            <div>
+            Person to delete:<input type="text" onchange="chosenPerson = this.value">
+            <button onclick="deletePerson()">Delete person</button>
+            <button onclick="updateKarisAddress()">Update Karis Address</button>
+            </div>
+            `;
+        }
+        function printPersonsArray(){
+            let html = ''
+            for(let i = 0; i<persons.length; i++){
+                html +=`<li>${persons[i].name} addr: ${persons[i].address}</li>` 
+           }
+           return html;
+        }
+
+        function setName(input){
+            name = input;            
+        }
+        function setAge(input){
+            age = input;            
+        }
+        function setAddress(input){
+            address = input;          
+        }
+        function submitUser(){
+            let person = {
+            name: name,
+            age: age,
+            address: address
+          }
+          persons.push(person);
+        
+          console.table(persons)
+          updateView()
+        }
+        function updateKarisAddress(){
+            // velge hvem
+           let indexenTilKari = searchForMatch('Kari',false)
+            // finne personen i arrayet
+           persons[indexenTilKari].address = 'ringveien'
+            // oppdatere feltet!
+            updateView();
+        }
+        function deletePerson(){
+            //chosenPerson //fra inputfelt
+            let index = searchForMatch(chosenPerson,false) //få tak i chosenperson
+            persons.splice(index,1)  // delete chosenperson fra arrayet
+            updateView();
+        }
+        function PeopleSearch(){
+            searchForMatch(searchCriteria,true)
+        }
+        function searchForMatch(match,searchFunc){
+            for(let i = 0; i<persons.length; i++){
+                if(persons[i].name.includes(match)){  
+                    chosenPerson = persons[i].name    
+                    if(searchFunc){
+                        updateView()
+                    }              
+                    return i;
+                }
+            }
+           
+           
+        }
+
+    </script>
+    <style>
+        .container{
+            display: flex;
+            flex-direction: column;
+            margin: 10px;
+            width: 200px;
+
+        }
+        input{
+            width: 100px;
+        }
+    </style>
+</body>
+</html>
