@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+    </div>
+
+    <script>
+        /*let tall = 1;
+        let tekst = 'heie'
+        let array = [1,1,1,1]
+
+        let sykkel = {
+            id: 1,
+            sted: 'Tønsberg',
+            tilgjengelig: true
+        };*/
+
+        let sykler =[
+        {
+            id: 1,
+            sted: 'Tønsberg',
+            tilgjengelig: true
+        },
+        {
+            id: 2,
+            sted: 'Sandefjord',
+            tilgjengelig: true
+        },
+        {
+            id: 3,
+            sted: 'larvik',
+            tilgjengelig: true
+        },
+        {
+            id: 4,
+            sted: 'narvik',
+            tilgjengelig: true
+        },
+        {
+            id: 5,
+            sted: 'svarstad',
+            tilgjengelig: false
+        },
+        {
+            id: 6,
+            sted: 'bergen',
+            tilgjengelig: false
+        }]
+       
+        let rentedBikes = [{
+            bikeid: 5,
+            userid: 4
+        },
+        {
+            bikeid: 6,
+            userid: 3
+        },
+        ]
+
+        let persons = [{
+            name: 'Kari',
+            id: 1,
+            age: 35,
+            address: 'Bjarnes kyststi'
+        },
+        {
+            name: 'Kurt',
+            id: 2,
+            age:40,
+            address: 'Kjærlighetsstien'
+        },
+        {
+            name: 'Nils',
+            id: 3,
+            age:48,
+            address: 'Klokkeåsen'
+        },
+        {
+            name: 'Bjarne',
+            id: 4,
+            age:43,
+            address: 'Nilsens vei'
+        }
+       ]
+
+       view()
+       function view(){
+         document.getElementById('app').innerHTML += `
+         ${userView()}
+         ${adminView()}
+         `
+       }
+       function adminView(){
+        let html = '';
+
+            for(let i = 0; i<rentedBikes.length; i++){
+               let bike=  getBike(rentedBikes[i].bikeid)
+               let person= getPerson(rentedBikes[i].userid)
+               
+               html += `<li>Sykkel id: ${bike.id}, Bruker: ${person.name}, Lokasjon: ${bike.sted}</li>` 
+
+            }
+            return html;
+       }
+       function getBike(bikeId){
+        let sykkel = sykler.find(x=> x.id == bikeId);
+        return sykkel;
+       }
+       function getPerson(personId){
+        let person = persons.find(x=> x.id == personId);
+        return person;
+       }
+       function userView(){
+        let html = '';
+        for(let i=0; i<sykler.length; i++){
+            if(sykler[i].tilgjengelig == true){
+                // vis sykkel
+                html += `<li>Sykkel id:${sykler[i].id}, Lokasjon: ${sykler[i].sted}</li>`
+            }
+        }
+        return html;
+       }
+    </script>
+</body>
+</html>
