@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let people = [{navn: 'Marie', klasse: 'Emne 1', age: 40},
+                      {navn: 'Sandra', klasse: 'Emne 2', age: 20},
+                      {navn: 'Alex W', klasse: 'Emne 3', age: 23},
+                      {navn: 'Victor', klasse: 'Emne 1', age: 15},
+                      {navn: 'Eilert', klasse: 'Emne 2', age: 70}]
+
+        
+        getAgeOfAllStudentsInEmne2()
+        function getAgeOfAllStudentsInEmne2(){
+            let peopleInEmne2 = people.filter(person => person.klasse == 'Emne 2').map(person => person.age)
+            console.log(peopleInEmne2)      
+        }
+
+        getPeopleInEmne1()
+        function getPeopleInEmne1(){
+            let peopleInEmne1 = people.filter(personObject => personObject.klasse == 'Emne 1');
+            console.log(peopleInEmne1);
+        }
+        getPeople20OrOlder()
+        function getPeople20OrOlder(){
+            let peopleAge = people.filter(personObject => personObject.age >= 20)
+            console.log(peopleAge)
+        }
+    </script>
+</body>
+</html>
